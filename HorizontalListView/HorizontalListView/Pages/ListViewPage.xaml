@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:customControls="clr-namespace:HorizontalListView.CustomControls;assembly=HorizontalListView"
+             x:Class="HorizontalListView.ListViewPage"
+             Title="Horizonatal ListView"
+             >
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="CommunityNameStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="Large" />
+                <Setter Property="TextColor" Value="#0a9bb5" />
+            </Style>
+
+            <Style x:Key="CommunityCreatedStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="Small" />
+                <Setter Property="TextColor" Value="#364f6b"/>
+                <Setter Property="VerticalOptions" Value="CenterAndExpand"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+
+        <ListView Grid.Row="1"
+                    HasUnevenRows="True"
+                    BackgroundColor="#f3f3f3"
+                    SeparatorVisibility="None"
+                    ItemsSource="{Binding CommunitiesList}"
+                    SelectedItem="{Binding SelectedCommunity}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+
+                        <Grid Padding="5">
+                            <Grid BackgroundColor="White" Padding="5">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <Label  Text="{Binding CommunityName}" Style="{StaticResource CommunityNameStyle}"/>
+                                <Label  Grid.Row="1"  Text="{Binding CreatedDate}" Style="{StaticResource CommunityCreatedStyle}" />
+
+                                <customControls:RepeaterView  Grid.Row="2" 
+                                                      ItemsSource="{Binding Persons}"
+                                                      NoOfColumns="3"
+                                                      >
+                                    <customControls:RepeaterView.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackLayout  Spacing="0" >
+                                                <Label Text="{Binding Name}" TextColor="#bc5c29"/>
+                                                <Label Text="{Binding City}" TextColor="Gray" />
+                                            </StackLayout>
+                                        </DataTemplate>
+                                    </customControls:RepeaterView.ItemTemplate>
+                                </customControls:RepeaterView>
+
+                            </Grid>
+                        </Grid>
+
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+    </Grid>
+</ContentPage>
